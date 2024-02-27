@@ -27,10 +27,6 @@ function countCats(matrix ) {
   
   return matrix.flat(2).filter(e => e === '^^').length
 
-
-
-
-
 }
 
 // console.log(matrix);

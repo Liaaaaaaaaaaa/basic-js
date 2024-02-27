@@ -37,7 +37,9 @@ function getSeason(date) {
 
  try {date.getUTCMonth()} 
   catch (error) { 
-   return 'Invalid date!';
+    throw new NotImplementedError('Invalid date!');
+  //  return 'Invalid date!';
+
   }
   
 
