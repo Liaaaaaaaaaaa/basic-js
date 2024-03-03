@@ -27,7 +27,7 @@ function renameFiles(names) {
   for (let i = 0; i < names.length; i += 1) {
     // console.log(massiveOutput.includes(names[i]))
     console.log(names[i].slice(names[i].length - 1) === ')');
-    if (massiveMiddleput.includes(names[i]) || names[i].slice(names[i].length - 1) === ')') {
+    if (massiveMiddleput.includes(names[i]) || (names[i].slice(names[i].length - 1) === ')' && massiveOutput.includes(names[i]))) {
       if (massiveMiddleput.includes(names[i])) {
         countRepeat += 1;
       }
@@ -48,7 +48,9 @@ function renameFiles(names) {
 }
 
 console.log(renameFiles(["file", "file", "image", "file(1)", "file"]))
-console.log(renameFiles(['doc', 'doc', 'image', 'doc(1)', 'doc']))
+console.log(renameFiles(['doc', 'doc', 'image', 'doc(1)', 'doc']));
+console.log(renameFiles(['a', 'b', 'cd', 'b ', 'a(3)']));
+
 
 
 module.exports = {
