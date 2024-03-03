@@ -18,22 +18,42 @@ let countMassive = 0;
 
 class DepthCalculator {
   calculateDepth(arr) {
-    // throw new NotImplementedError('Not implemented');
-    let massive = [];
-    for (let i = 0; i < arr.length; i += 1) {
-      if (Array.isArray(arr[i])) {
-        times++;
-        massive.push(countMassive)
-        countMassive++;
-        this.calculateDepth(arr[i]);
-      }
-    }
-    return times;
-  }
-}
+    const array = [];
 
-// let one = new DepthCalculator();
-// console.log(one.calculateDepth([1, 2, 3, 4, [1, 2, [1, 2, [[[]]]]], 5, [1, [[[[[[]]]]]]]]));
+    if(arr.length === 0) {
+      return 1;
+    }
+
+    arr.forEach(item => {
+      let counter = 1;
+      if(Array.isArray(item)) {
+        counter += this.calculateDepth(item);
+      }
+      array.push(counter);
+    });    
+      return array.sort((a, b) => b - a)[0];
+    }  
+  }
+
+
+
+
+  // calculateDepth(arr) {
+  //   let massive = [];
+  //   for (let i = 0; i < arr.length; i += 1) {
+  //     if (Array.isArray(arr[i])) {
+  //       times++;
+  //       massive.push(countMassive)
+  //       countMassive++;
+  //       this.calculateDepth(arr[i]);
+  //     }
+  //   }
+  //   return times;
+  // }
+
+
+let one = new DepthCalculator();
+console.log(one.calculateDepth([1, [8, [[]]], [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]], []]]], []]]]]]]]], []]]], []]]]]]]]]], 2, 3, [8, [[[[[[[[[[[[[[]]]]]]]]]]]]]]], [8, [[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]], 4, 5, ['6575', ['adas', ['dfg', [0]]]]]));
 // console.log(times);
 
 module.exports = {

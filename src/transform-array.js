@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+// const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Create transformed array based on the control sequences that original
@@ -28,16 +28,24 @@ function transform(arr) {
     if (typeof arrNew[i] === 'string') {
       switch (arrNew[i]) {
         case '--double-next':
+          if(arrNew[i+1]){
           result.push(arrNew[i + 1]);
+          }
           break;
         case '--double-prev':
-          result.push(arrNew[i - 1]);
+          if(i-1 > 0){
+            result.push(arrNew[i - 1]);
+          }
           break;
         case '--discard-prev':
+          if(i-1 > 0){
           result.pop();
+          }
           break;
         case '--discard-next':
+          if(arrNew[i+1]){
           arrNew.splice(i, 2);
+          }
           break;
         case 'undefined':
           console.log('one');
@@ -60,9 +68,13 @@ function transform(arr) {
 }
 
 
-// console.log(transform([ undefined, 1, 2, 3 ]) );
-// transform([ undefined, 1, 2, 3 ]);
+// console.log(transform(undefined), [1, 2, 3] );
+// console.log(transform( ['--double-prev', 1, 2, 3]));
 // console.log(transform(3.312312));
+// console.log(transform(['--discard-prev', 1, 2, 3]));
+// console.log(transform(['--double-prev', 1, 2, 3]));
+console.log(transform([1, 2, 3, '--double-next']));
+// console.log(transform([1, 2, 3, '--discard-next']));
 // console.log(transform(false));
 // console.log(transform(true));
 // console.log( transform(null));

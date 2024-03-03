@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+// const { NotImplementedError } = require('../extensions/index.js');
 
 /**
  * Given two strings, find the number of common characters between them.
@@ -12,10 +12,13 @@ const { NotImplementedError } = require('../extensions/index.js');
  * Strings have 3 common characters - 2 "a"s and 1 "c".
  */
 
-let commonCount = 0;
-let sameElement = [];
+
+
 
 function getCommonCharacterCount(s1, s2) {
+  let commonCount = 0;
+  let addCount = 0;
+  let sameElement = [];
   let s1Massive = s1.split('');
   let s2Massive = s2.split('');
   // console.log(s2Massive)
@@ -25,7 +28,19 @@ function getCommonCharacterCount(s1, s2) {
     sameElement = sameElement.flat(2);
     let sameElementSet = new Set(sameElement);
     commonCount = sameElementSet.size;
+
+    let sameElementsS1Massive = s1Massive.filter(e => e === s1Massive[i]);
+    let sameElementsS2Massive = s2Massive.filter(e => e === s2Massive[i]);
+    // console.log(sameElementsS1Massive);
+    // console.log(sameElementsS2Massive);
+    if (sameElementsS1Massive.length >= 2 && sameElementsS2Massive.length >= 2 && sameElementsS1Massive[0] === sameElementsS2Massive[0]) {
+      console.log('yes');
+      addCount += 1;
+    }
   }
+
+  commonCount = commonCount + addCount;
+
   // console.log(commonCount);
   // console.log(sameElement);
 
@@ -33,15 +48,18 @@ function getCommonCharacterCount(s1, s2) {
     console.log('rrr');
     return (s1Massive.length > s2Massive.length) ? s2Massive.length : s1Massive.length;
   } else {
-    return commonCount;
+    console.log(commonCount);
+    console.log(addCount);
+    return commonCount ;
   }
 
 }
 
 
-// console.log(getCommonCharacterCount('zzzz', 'zzzzzzz'));
+console.log(getCommonCharacterCount('zzzz', 'zzzzzzz'));
 // console.log(getCommonCharacterCount('abca', 'xyzbac'));
 console.log(getCommonCharacterCount('aabcc', 'adcaa'));
+console.log(getCommonCharacterCount('abca', 'xyzbac'));
 
 module.exports = {
   getCommonCharacterCount
