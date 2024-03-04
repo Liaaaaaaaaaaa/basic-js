@@ -23,49 +23,34 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 
-// let objectDomains = {};
+
 
 function getDNSStats(domains) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-
-  let massiveDomains = [];
-  for (let i = 0; i < domains.length; i += 1) {
-    let domainsElem = domains[i].split('.').reverse();
-
-
-    for (let t = 0; t < domainsElem.length; t += 1) {
-      massiveDomains.push([]);
-      console.log(massiveDomains);
-      massiveDomains[t].push([domainsElem[t]]);
+  if (domains.length === 0) return {};
+  const array = domains.map(domain => domain.split('.'));
+  let max = array[0];
+  for (let i = 1; i < array.length; i += 1) {
+    const curr = array[i];
+    if (curr.length > max.length) {
+      max = curr;
     }
-
-    massiveDomains = massiveDomains.filter(e => e.length);
-    console.log(massiveDomains);
-    
-
-    for (let i = 0; i < massiveDomains.length; i+=1) {
-      let massiveOneDomain = massiveDomains[i].flat();
-      let setOneDomainSet = Array.from(new Set (massiveOneDomain)) ;
-      console.log(setOneDomainSet);
-      objectDomains[setOneDomainSet[0]] = 0
-    }
- 
-    console.log(objectDomains)
-
   }
-
-
-  // massiveSet = new Set(massiveDomains.flat(5));
-  // objectDomains[".ru "] = 3;
+  const size = max.length - 1;
+  const result = {};
+  let name = '';
+  for (let i = 0; i <= size; i += 1) {
+    let el = max[size - i];
+    name +=  `.${el}`; 
+    let counter = 0;
+    array.forEach(arr => {
+      if (arr.includes(el)) {
+        counter += 1;
+      }
+    })
+    result[name] = counter;
+  }
+  return result;
 }
-
-
-// getDNSStats(domains = [
-//   'code.yandex.ru',
-//   'music.yandex.ru',
-//   'yandex.ru'
-// ])
 
 module.exports = {
   getDNSStats
